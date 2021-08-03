@@ -2,3 +2,4 @@ cmd2
 prettytable
 PTable
 ansible
+boto3

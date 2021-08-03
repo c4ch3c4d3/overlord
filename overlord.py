@@ -21,6 +21,7 @@ import argparse
 import create
 import godaddy
 import ansible
+import ami_update
 #import firewall
 
 
@@ -110,6 +111,17 @@ class Overlord(cmd2.Cmd):
 
     newproject_parser = argparse.ArgumentParser(prog='new')
     newproject_id = newproject_parser.add_argument('id', type=str, nargs="?", help='example: new / new <name> ]')
+
+
+    def do_update_ami(self,arg):
+        """Update AWS Image IDs in json.config."""
+        try:
+            ami_update.main(self.variables['aws_access_key'], self.variables['aws_secret_key'])
+        except ClientError:
+            print("Set AWS Access & Secret Keys first.")
+
+    update_ami_parser = argparse.ArgumentParser(prog='update_ami')
+    update_ami_id = update_ami_parser.add_argument('id', type=str, nargs="?", help='example: update_ami ]')
 
     @cmd2.with_argparser(newproject_parser)
     def do_new(self,arg):
@@ -709,3 +721,4 @@ if __name__ == '__main__':
     app = Overlord()
     app.set_window_title("Overlord")
     app.cmdloop()
+
