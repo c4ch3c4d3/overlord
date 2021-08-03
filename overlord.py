@@ -117,7 +117,7 @@ class Overlord(cmd2.Cmd):
         """Update AWS Image IDs in json.config."""
         try:
             ami_update.main(self.variables['aws_access_key'], self.variables['aws_secret_key'])
-        except ClientError:
+        except:
             print("Set AWS Access & Secret Keys first.")
 
     update_ami_parser = argparse.ArgumentParser(prog='update_ami')
